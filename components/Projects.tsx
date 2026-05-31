@@ -62,13 +62,26 @@ export default function Projects() {
             <motion.div
               key={item.id}
               variants={itemVariants}
+              onViewportEnter={() => {
+                if (typeof window !== "undefined" && window.innerWidth < 768) setHovered(index);
+              }}
+              onViewportLeave={() => {
+                if (typeof window !== "undefined" && window.innerWidth < 768 && hovered === index) setHovered(null);
+              }}
+              viewport={{ margin: "-35% 0px -35% 0px", amount: "some" }}
               onMouseEnter={() => setHovered(index)}
               onMouseLeave={() => setHovered(null)}
-              className="group flex flex-col md:flex-row md:items-center justify-between py-12 md:py-16 border-b border-white/10 cursor-pointer hover:px-8 transition-all duration-500"
+              className={`flex flex-col md:flex-row md:items-center justify-between py-12 md:py-16 border-b border-white/10 cursor-pointer transition-all duration-500 ${
+                hovered === index ? "px-4 md:px-8" : ""
+              }`}
             >
               <div className="flex flex-col gap-2">
                 <span className="text-xs font-mono text-zinc-500 mb-2 block">0{item.id}</span>
-                <h3 className="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-zinc-500 transition-all duration-300">
+                <h3 className={`text-5xl md:text-7xl font-black uppercase tracking-tighter transition-all duration-300 ${
+                  hovered === index 
+                    ? "text-transparent bg-clip-text bg-gradient-to-r from-white to-zinc-500" 
+                    : "text-white"
+                }`}>
                   {item.title}
                 </h3>
               </div>
@@ -78,7 +91,9 @@ export default function Projects() {
                   <span className="text-sm font-bold text-zinc-400 uppercase tracking-widest">{item.category}</span>
                   <span className="text-xs font-mono text-zinc-600">{item.year}</span>
                 </div>
-                <div className="h-16 w-16 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-colors duration-300 hidden md:flex">
+                <div className={`h-16 w-16 rounded-full border border-white/20 flex items-center justify-center transition-colors duration-300 md:flex ${
+                  hovered === index ? "bg-white text-black" : "text-white"
+                }`}>
                    <ArrowUpRight className="h-8 w-8" />
                 </div>
               </div>

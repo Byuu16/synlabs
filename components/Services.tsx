@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Code2, PenTool, ShoppingCart, Rocket, MoveRight } from "lucide-react";
+import { useState } from "react";
 
 const services = [
   {
@@ -45,6 +46,8 @@ const itemVariants = {
 };
 
 export default function Services() {
+  const [hovered, setHovered] = useState<number | null>(null);
+
   return (
     <section className="relative w-full bg-[#050505] border-b border-white/10 pt-32 pb-24 px-4 sm:px-8 md:px-12">
       <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_0%,#000_20%,transparent_100%)]" />
@@ -73,22 +76,41 @@ export default function Services() {
             <motion.div
               key={index}
               variants={itemVariants}
-              className="group relative bg-[#050505] p-12 hover:bg-white transition-colors duration-500 overflow-hidden cursor-default"
+              onViewportEnter={() => {
+                if (typeof window !== "undefined" && window.innerWidth < 768) setHovered(index);
+              }}
+              onViewportLeave={() => {
+                if (typeof window !== "undefined" && window.innerWidth < 768 && hovered === index) setHovered(null);
+              }}
+              viewport={{ margin: "-30% 0px -30% 0px", amount: "some" }}
+              onMouseEnter={() => setHovered(index)}
+              onMouseLeave={() => setHovered(null)}
+              className={`relative p-12 transition-colors duration-500 overflow-hidden cursor-default ${
+                hovered === index ? "bg-white" : "bg-[#050505]"
+              }`}
             >
               <div className="flex flex-col h-full justify-between">
                 <div className="mb-12 inline-flex">
-                  <item.icon className="h-10 w-10 text-white group-hover:text-black transition-colors duration-500" />
+                  <item.icon className={`h-10 w-10 transition-colors duration-500 ${
+                    hovered === index ? "text-black" : "text-white"
+                  }`} />
                 </div>
                 <div>
-                  <h3 className="text-3xl md:text-4xl font-black text-white group-hover:text-black uppercase tracking-tight mb-4 transition-colors duration-500">
+                  <h3 className={`text-3xl md:text-4xl font-black uppercase tracking-tight mb-4 transition-colors duration-500 ${
+                    hovered === index ? "text-black" : "text-white"
+                  }`}>
                     {item.title}
                   </h3>
-                  <p className="text-zinc-400 group-hover:text-zinc-600 font-medium text-lg max-w-sm transition-colors duration-500">
+                  <p className={`font-medium text-lg max-w-sm transition-colors duration-500 ${
+                    hovered === index ? "text-zinc-600" : "text-zinc-400"
+                  }`}>
                     {item.description}
                   </p>
                 </div>
               </div>
-              <div className="absolute top-12 right-12 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500">
+              <div className={`absolute top-12 right-12 transition-all duration-500 ${
+                hovered === index ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
+              }`}>
                  <MoveRight className="h-10 w-10 text-black" />
               </div>
             </motion.div>
