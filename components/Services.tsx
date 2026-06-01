@@ -49,8 +49,9 @@ export default function Services() {
   const [hovered, setHovered] = useState<number | null>(null);
 
   return (
-    <section className="relative w-full bg-[#050505] border-b border-white/10 pt-32 pb-24 px-4 sm:px-8 md:px-12">
-      <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_0%,#000_20%,transparent_100%)]" />
+    <section className="relative w-full bg-black border-b border-white/10 pt-32 pb-24 px-4 sm:px-8 md:px-12">
+      {/* Removed mask-image to prevent WebKit gray background/compositing bugs and fading into transparency */}
+      <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:4rem_4rem]" />
 
       <div className="relative z-10 max-w-7xl mx-auto">
         <motion.div
@@ -65,12 +66,13 @@ export default function Services() {
           </h2>
         </motion.div>
 
+        {/* Removed gap-px and bg-white/10. Using explicit borders for pure black background */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/10 border border-white/10"
+          className="grid grid-cols-1 md:grid-cols-2 border-l border-t border-white/10"
         >
           {services.map((item, index) => (
             <motion.div
@@ -85,8 +87,8 @@ export default function Services() {
               viewport={{ margin: "-30% 0px -30% 0px", amount: "some" }}
               onMouseEnter={() => setHovered(index)}
               onMouseLeave={() => setHovered(null)}
-              className={`relative p-12 transition-colors duration-500 overflow-hidden cursor-default ${
-                hovered === index ? "bg-white" : "bg-[#050505]"
+              className={`relative p-12 transition-colors duration-500 overflow-hidden cursor-default border-r border-b border-white/10 ${
+                hovered === index ? "bg-white" : "bg-black"
               }`}
             >
               <div className="flex flex-col h-full justify-between">

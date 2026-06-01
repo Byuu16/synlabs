@@ -6,7 +6,7 @@ const text = "NO FLUFF • JUST RESULTS • SCALABLE ARCHITECTURE • RUTHLESS E
 
 export default function Marquee() {
   return (
-    <div className="relative flex overflow-x-hidden border-y border-white/10 bg-[#050505] py-4 sm:py-6 z-20">
+    <div className="relative flex overflow-x-hidden border-y border-white/10 bg-black py-4 sm:py-6 z-20">
       <motion.div
         className="whitespace-nowrap flex w-max"
         animate={{ x: ["0%", "-50%"] }}

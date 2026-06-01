@@ -29,7 +29,7 @@ const statVariants = {
 
 export default function WhyChooseUs() {
   return (
-    <section className="relative w-full bg-[#050505] border-b border-white/10 py-32 px-4 sm:px-8 md:px-12 overflow-hidden">
+    <section className="relative w-full bg-black border-b border-white/10 py-32 px-4 sm:px-8 md:px-12 overflow-hidden">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-20 items-start">
         
         <div className="lg:w-1/2 lg:sticky lg:top-32">
@@ -64,7 +64,7 @@ export default function WhyChooseUs() {
             <motion.div 
               key={i}
               variants={statVariants}
-              className="bg-[#050505] p-10 flex flex-col justify-center items-center text-center group hover:bg-zinc-900 transition-colors"
+              className="bg-black p-10 flex flex-col justify-center items-center text-center group hover:bg-zinc-900 transition-colors"
             >
               <span className="text-5xl md:text-6xl font-black text-white tracking-tighter mb-2 group-hover:scale-110 transition-transform duration-300">
                 {stat.value}

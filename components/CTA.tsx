@@ -5,7 +5,7 @@ import { MoveRight } from "lucide-react";
 
 export default function CTA() {
   return (
-    <section className="relative w-full min-h-[80vh] bg-[#050505] flex items-center justify-center overflow-hidden px-4 py-32">
+    <section className="relative w-full min-h-[80vh] bg-black flex items-center justify-center overflow-hidden px-4 py-32">
       <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_20%,transparent_100%)]" />
       
       <motion.div 

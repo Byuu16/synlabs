@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { MoveRight } from "lucide-react";
 import { useRef } from "react";
+import Magnetic from "@/components/Magnetic";
 
 export default function Hero() {
   const containerRef = useRef(null);
@@ -17,7 +18,7 @@ export default function Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen bg-[#050505] text-white overflow-hidden flex flex-col justify-end pb-40 px-4 sm:px-8 md:px-12 pt-32"
+      className="relative min-h-screen bg-black text-white overflow-hidden flex flex-col justify-end pb-40 px-4 sm:px-8 md:px-12 pt-32"
     >
       {/* Precision Grid Background - Anti-mainstream aesthetic */}
       <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_20%,transparent_100%)]" />

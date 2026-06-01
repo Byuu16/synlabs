@@ -38,7 +38,7 @@ export default function MusicPlayer() {
         className={`relative flex items-center justify-center w-12 h-12 rounded-full shadow-2xl transition-all duration-500 overflow-hidden border ${
           isPlaying 
             ? "bg-white text-black border-white hover:scale-105" 
-            : "bg-[#050505] text-white border-white/20 hover:border-white hover:scale-105"
+            : "bg-black text-white border-white/20 hover:border-white hover:scale-105"
         }`}
         aria-label="Toggle Music"
       >

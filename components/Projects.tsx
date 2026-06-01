@@ -33,7 +33,7 @@ export default function Projects() {
   const [hovered, setHovered] = useState<number | null>(null);
 
   return (
-    <section className="relative w-full bg-[#050505] py-32 px-4 sm:px-8 md:px-12 border-b border-white/10">
+    <section className="relative w-full bg-black py-32 px-4 sm:px-8 md:px-12 border-b border-white/10">
       <div className="max-w-7xl mx-auto">
         <motion.div 
           initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}

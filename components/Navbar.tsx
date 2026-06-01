@@ -55,7 +55,7 @@ export default function Navbar() {
             animate={{ y: 0 }}
             exit={{ y: "-100%" }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-[100] bg-[#050505] text-white flex flex-col px-4 sm:px-8 md:px-12 py-6 overflow-y-auto"
+            className="fixed inset-0 z-[100] bg-black text-white flex flex-col px-4 sm:px-8 md:px-12 py-6 overflow-y-auto"
             data-lenis-prevent="true"
           >
             {/* Header inside menu */}
