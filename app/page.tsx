@@ -14,6 +14,8 @@ const Testimonials = dynamic(() => import("@/components/Testimonials"));
 const CTA = dynamic(() => import("@/components/CTA"));
 const Footer = dynamic(() => import("@/components/Footer"));
 const MusicPlayer = dynamic(() => import("@/components/MusicPlayer"));
+const FPSCounter = dynamic(() => import("@/components/FPSCounter"));
+const Terminal = dynamic(() => import("@/components/Terminal"));
 
 export default function HomePage() {
   return (
@@ -22,6 +24,8 @@ export default function HomePage() {
       <CustomCursor />
       <Navbar />
       <MusicPlayer />
+      <FPSCounter />
+      <Terminal />
       <Hero />
       <Showreel />
       <Marquee />
