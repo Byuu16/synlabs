@@ -36,8 +36,11 @@ export default function Navbar() {
         transition={{ duration: 1, delay: 2, ease: [0.16, 1, 0.3, 1] }}
         className="fixed top-0 w-full z-50 px-4 sm:px-8 md:px-12 py-6 flex items-center justify-between mix-blend-difference pointer-events-none"
       >
-        <div className="text-white font-black text-xl tracking-tighter uppercase pointer-events-auto cursor-pointer">
-          Syntech<span className="text-zinc-500">.</span>
+        <div className="flex items-center gap-1.5 pointer-events-auto cursor-pointer">
+          <img src="/logo2.png" alt="Syntech Logo" className="w-10 h-10 object-contain" />
+          <div className="text-white font-black text-2xl leading-none tracking-tighter uppercase mt-1">
+            Syntech<span className="text-zinc-500">.</span>
+          </div>
         </div>
         <button 
           onClick={() => setIsOpen(true)}
@@ -60,8 +63,11 @@ export default function Navbar() {
           >
             {/* Header inside menu */}
             <div className="flex items-center justify-between w-full shrink-0">
-              <div className="font-black text-xl tracking-tighter uppercase cursor-pointer">
-                Syntech<span className="text-zinc-500">.</span>
+              <div className="flex items-center gap-1.5 cursor-pointer">
+                <img src="/logo2.png" alt="Syntech Logo" className="w-10 h-10 object-contain" />
+                <div className="font-black text-2xl leading-none tracking-tighter uppercase mt-1">
+                  Syntech<span className="text-zinc-500">.</span>
+                </div>
               </div>
               <button 
                 onClick={() => setIsOpen(false)}
