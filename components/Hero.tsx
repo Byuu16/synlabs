@@ -28,7 +28,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.2 }}
+          transition={{ duration: 1, delay: 2.2 }}
           className="mb-6 flex flex-col items-start md:items-center text-xs sm:text-sm font-mono uppercase tracking-[0.2em] gap-2"
         >
           <span className="text-zinc-500">// INITIALIZING_SYSTEM_ARCHITECTURE</span>
@@ -37,7 +37,7 @@ export default function Hero() {
         <motion.h1
           initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 2.3 }}
           className="text-5xl sm:text-7xl md:text-[6.5rem] font-medium tracking-tighter leading-[1.05] text-white mb-8"
         >
           Engineering <br className="hidden sm:block" /> Intelligent Systems.
@@ -46,7 +46,7 @@ export default function Hero() {
         <motion.p
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 2.5 }}
           className="text-zinc-400 text-lg md:text-xl font-light leading-relaxed max-w-2xl md:mx-auto mb-12"
         >
           We forge the link between physical infrastructure, digital architecture, and artificial intelligence. SYNLABS is an engineering studio building unified ecosystems for the modern industrial age.
@@ -55,7 +55,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.7 }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 2.7 }}
           className="flex flex-col sm:flex-row items-start md:items-center justify-start md:justify-center gap-4 w-full"
         >
           <button className="w-full sm:w-auto group relative overflow-hidden rounded-sm bg-white px-8 py-4 text-sm font-semibold tracking-wide text-black transition-all hover:bg-zinc-200">
@@ -76,7 +76,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.2 }}
+          transition={{ duration: 1, delay: 3.2 }}
           className="flex items-center gap-4 text-[10px] font-mono text-zinc-600 uppercase tracking-[0.25em]"
         >
           <span>SYNLABS_CORE_V2.0</span>
