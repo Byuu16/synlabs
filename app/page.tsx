@@ -1,21 +1,18 @@
 import dynamic from "next/dynamic";
 import Hero from "@/components/Hero";
-import Marquee from "@/components/Marquee";
 import Navbar from "@/components/Navbar";
 import CustomCursor from "@/components/CustomCursor";
 import Preloader from "@/components/Preloader";
-import Showreel from "@/components/Showreel";
+import TheThesis from "@/components/TheThesis";
 
 // Lazy load below-the-fold and non-critical components to optimize TTI & LCP
-const Services = dynamic(() => import("@/components/Services"));
-const WhyChooseUs = dynamic(() => import("@/components/WhyChooseUs"));
-const Projects = dynamic(() => import("@/components/Projects"));
-const Testimonials = dynamic(() => import("@/components/Testimonials"));
-const CTA = dynamic(() => import("@/components/CTA"));
+const Capabilities = dynamic(() => import("@/components/Capabilities"));
+const EngineeringLog = dynamic(() => import("@/components/EngineeringLog"));
+const Studio = dynamic(() => import("@/components/Studio"));
+const TerminalCTA = dynamic(() => import("@/components/TerminalCTA"));
 const Footer = dynamic(() => import("@/components/Footer"));
 const MusicPlayer = dynamic(() => import("@/components/MusicPlayer"));
 const FPSCounter = dynamic(() => import("@/components/FPSCounter"));
-const Terminal = dynamic(() => import("@/components/Terminal"));
 
 export default function HomePage() {
   return (
@@ -23,17 +20,15 @@ export default function HomePage() {
       <Preloader />
       <CustomCursor />
       <Navbar />
-      <MusicPlayer />
-      <FPSCounter />
-      <Terminal />
+      {/* <MusicPlayer /> - Kept available if desired, but might conflict with raw engineering vibe */}
+      
       <Hero />
-      <Showreel />
-      <Marquee />
-      <Services />
-      <WhyChooseUs />
-      <Projects />
-      <Testimonials />
-      <CTA />
+      <TheThesis />
+      <Capabilities />
+      <EngineeringLog />
+      <Studio />
+      <TerminalCTA />
+      
       <Footer />
     </main>
   );

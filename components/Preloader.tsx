@@ -12,12 +12,12 @@ export default function Preloader() {
     
     const timer = setTimeout(() => {
       setIsLoading(false);
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = "";
     }, 2000);
 
     return () => {
       clearTimeout(timer);
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = "";
     };
   }, []);
 
@@ -38,7 +38,7 @@ export default function Preloader() {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
               className="text-white font-black text-4xl md:text-6xl tracking-tighter uppercase"
             >
-              Syntech Agency
+              SynLabs
             </motion.div>
           </div>
           <motion.div 

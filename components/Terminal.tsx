@@ -8,7 +8,7 @@ export default function Terminal() {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
   const [history, setHistory] = useState<{ type: 'input' | 'output', text: string }[]>([
-    { type: 'output', text: 'SYNTECH OS v1.0.0 initializing...' },
+    { type: 'output', text: 'SynLabs OS v1.0.0 initializing...' },
     { type: 'output', text: 'Type "help" for a list of available commands.' }
   ]);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -42,14 +42,14 @@ export default function Terminal() {
     if (!input.trim()) return;
 
     const cmd = input.trim().toLowerCase();
-    const newHistory = [...history, { type: 'input' as const, text: `guest@syntech:~$ ${cmd}` }];
+    const newHistory = [...history, { type: 'input' as const, text: `guest@synlabs:~$ ${cmd}` }];
 
     switch (cmd) {
       case 'help':
         newHistory.push({ type: 'output', text: 'Available commands: about, services, stack, clear, exit' });
         break;
       case 'about':
-        newHistory.push({ type: 'output', text: 'Syntech Agency. We engineer unfair advantages for ambitious startups.' });
+        newHistory.push({ type: 'output', text: 'SynLabs. We engineer unfair advantages for ambitious startups.' });
         break;
       case 'services':
         newHistory.push({ type: 'output', text: '1. Engineering\n2. Interface\n3. Commerce\n4. Venture' });
@@ -89,7 +89,7 @@ export default function Terminal() {
               <div className="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/50" />
               <div className="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500/50" />
               <div className="w-3 h-3 rounded-full bg-green-500/20 border border-green-500/50" />
-              <span className="ml-2 text-zinc-500 text-xs">root@syntech:~</span>
+              <span className="ml-2 text-zinc-500 text-xs">root@synlabs:~</span>
             </div>
             <button onClick={() => setIsOpen(false)} className="text-zinc-500 hover:text-white transition-colors">
               <X size={16} />
@@ -105,7 +105,7 @@ export default function Terminal() {
             ))}
             <div ref={bottomRef} />
             <form onSubmit={handleCommand} className="flex items-center gap-2 mt-2">
-              <span className="text-green-500">guest@syntech:~$</span>
+              <span className="text-green-500">guest@synlabs:~$</span>
               <input
                 ref={inputRef}
                 type="text"

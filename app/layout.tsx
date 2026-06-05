@@ -14,11 +14,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Syntech Agency",
+  title: "SynLabs",
   description: "We engineer unfair advantages for ambitious startups. No fluff, just scalable architecture and ruthless execution to grow your business.",
   keywords: ["Web Development", "UI/UX Design", "Software Engineering", "Agency"],
   openGraph: {
-    title: "Syntech Agency",
+    title: "SynLabs",
     description: "High Performance Digital Experiences",
     type: "website",
   },

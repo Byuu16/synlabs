@@ -2,11 +2,10 @@
 
 import { motion } from "framer-motion";
 
-const stats = [
-  { value: "50+", label: "Products Launched" },
-  { value: "<100ms", label: "Average Latency" },
-  { value: "99.9%", label: "Uptime Guaranteed" },
-  { value: "$0", label: "Wasted Budget" },
+const processSteps = [
+  { id: "01", title: "Build", description: "Transform ideas into working systems." },
+  { id: "02", title: "Test", description: "Validate performance, usability, and reliability." },
+  { id: "03", title: "Grow", description: "Grow products and operations through technology." },
 ];
 
 const containerVariants = {
@@ -17,11 +16,11 @@ const containerVariants = {
   },
 };
 
-const statVariants = {
-  hidden: { opacity: 0, scale: 0.9, filter: "blur(10px)" },
+const stepVariants = {
+  hidden: { opacity: 0, x: -20, filter: "blur(10px)" },
   visible: { 
     opacity: 1, 
-    scale: 1, 
+    x: 0, 
     filter: "blur(0px)",
     transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] } 
   },
@@ -32,24 +31,24 @@ export default function WhyChooseUs() {
     <section className="relative w-full bg-black border-b border-white/10 py-32 px-4 sm:px-8 md:px-12 overflow-hidden">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-20 items-start">
         
-        <div className="lg:w-1/2 lg:sticky lg:top-32">
+        <div className="lg:w-1/3 lg:sticky lg:top-32">
           <motion.h2 
-            initial={{ opacity: 0, x: -40, filter: "blur(10px)" }}
-            whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+            initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
+            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-white mb-8 leading-[0.9]"
+            className="text-4xl md:text-5xl font-medium tracking-tight text-white mb-6"
           >
-            The Unfair <br /> Advantage.
+            Engineering <br /> Process
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ delay: 0.2, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="text-xl text-zinc-400 font-light leading-relaxed max-w-md border-l-2 border-white/20 pl-6"
+            className="text-lg text-zinc-400 font-light leading-relaxed max-w-sm"
           >
-            We don't build generic templates. We construct high performance digital infrastructure for brands that refuse to blend in.
+            A systematic approach to developing intelligent systems. We prioritize architecture, testing, and scalability from day one.
           </motion.p>
         </div>
 
@@ -58,20 +57,25 @@ export default function WhyChooseUs() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-px bg-white/10 border border-white/10 w-full"
+          className="lg:w-2/3 flex flex-col gap-12 w-full"
         >
-          {stats.map((stat, i) => (
+          {processSteps.map((step, i) => (
             <motion.div 
               key={i}
-              variants={statVariants}
-              className="bg-black p-10 flex flex-col justify-center items-center text-center group hover:bg-zinc-900 transition-colors"
+              variants={stepVariants}
+              className="flex flex-col sm:flex-row items-start gap-6 sm:gap-12 border-b border-white/10 pb-12 last:border-0 last:pb-0 group"
             >
-              <span className="text-5xl md:text-6xl font-black text-white tracking-tighter mb-2 group-hover:scale-110 transition-transform duration-300">
-                {stat.value}
+              <span className="text-sm font-mono text-zinc-600 mt-2 shrink-0">
+                {step.id}
               </span>
-              <span className="text-sm font-bold text-zinc-500 uppercase tracking-widest">
-                {stat.label}
-              </span>
+              <div>
+                <h3 className="text-3xl md:text-4xl font-semibold tracking-tight text-white mb-4 transition-colors group-hover:text-zinc-300">
+                  {step.title}
+                </h3>
+                <p className="text-zinc-400 text-lg font-light leading-relaxed max-w-xl">
+                  {step.description}
+                </p>
+              </div>
             </motion.div>
           ))}
         </motion.div>

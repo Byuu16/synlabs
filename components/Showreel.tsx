@@ -37,7 +37,7 @@ export default function Showreel() {
             className="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity duration-700 group-hover:scale-105"
           >
             {/* Replace this src with your actual compressed .mp4 file placed in /public */}
-            <source src="/Intro.mp4" type="video/mp4" />
+            <source src="/instrosynlabs.mp4" type="video/mp4" />
           </video>
           
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.2)_0%,rgba(0,0,0,0.8)_100%)] transition-opacity duration-700 group-hover:opacity-50" />
@@ -82,7 +82,7 @@ export default function Showreel() {
               className="w-full h-full object-contain"
             >
               {/* Replace with your high quality showreel video */}
-              <source src="/Intro.mp4" type="video/mp4" />
+              <source src="/instrosynlabs.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </motion.div>

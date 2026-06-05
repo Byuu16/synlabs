@@ -1,29 +1,29 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Cpu, Bot, Globe, Box, MoveRight } from "lucide-react";
+import { Cpu, Server, Fingerprint, Network } from "lucide-react";
 import { useState } from "react";
 
 const capabilities = [
   {
-    title: "EMBEDDED & IOT",
-    description: "Designing connected devices and intelligent hardware systems.",
+    title: "Embedded Systems & Hardware",
+    description: "Precision electronics, PCB design, and firmware developed for extreme environments and edge computing.",
     icon: Cpu,
   },
   {
-    title: "AI AUTOMATION",
-    description: "Building intelligent workflows, AI agents, and business automation systems.",
-    icon: Bot,
+    title: "Enterprise Software Architecture",
+    description: "Resilient, scalable backends and high performance interfaces designed to process massive telemetry and operational data.",
+    icon: Server,
   },
   {
-    title: "WEB PLATFORMS",
-    description: "Developing scalable applications and modern digital products.",
-    icon: Globe,
+    title: "Artificial Intelligence Integration",
+    description: "Beyond generic LLMs. We deploy localized machine learning models, computer vision, and predictive algorithms directly onto edge devices and core infrastructure.",
+    icon: Fingerprint,
   },
   {
-    title: "PRODUCT DEVELOPMENT",
-    description: "End to end engineering from concept to production ready scalable systems.",
-    icon: Box,
+    title: "Industrial IoT & Connectivity",
+    description: "Secure, low latency communication protocols bridging physical sensors with cloud-native control centers.",
+    icon: Network,
   },
 ];
 
@@ -45,27 +45,34 @@ const itemVariants = {
   },
 };
 
-export default function Services() {
+export default function Capabilities() {
   const [hovered, setHovered] = useState<number | null>(null);
 
   return (
-    <section className="relative w-full bg-black border-b border-white/10 pt-32 pb-24 px-4 sm:px-8 md:px-12">
-      <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:4rem_4rem]" />
-
+    <section id="capabilities" className="relative w-full bg-black border-b border-white/10 pt-32 pb-24 px-4 sm:px-8 md:px-12">
+      
       <div className="relative z-10 max-w-7xl mx-auto">
+        
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-8 font-mono text-xs text-zinc-500 uppercase tracking-widest"
+        >
+          // CAPABILITIES_OVERVIEW
+        </motion.div>
+
         <motion.div
           initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
           className="mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-medium tracking-tight text-white mb-4">
-            Core Capabilities
+            Full Spectrum Engineering.
           </h2>
-          <p className="text-zinc-400 max-w-xl text-lg font-light">
-            We engineer intelligent solutions that connect hardware, software, and AI.
-          </p>
         </motion.div>
 
         <motion.div 
@@ -94,21 +101,16 @@ export default function Services() {
             >
               <div className="flex flex-col h-full justify-between">
                 <div className="mb-12 inline-flex">
-                  <item.icon className="h-8 w-8 text-white/80" strokeWidth={1.5} />
+                  <item.icon className={`h-8 w-8 transition-colors duration-500 ${hovered === index ? "text-white" : "text-zinc-600"}`} strokeWidth={1.5} />
                 </div>
                 <div>
-                  <h3 className="text-xl md:text-2xl font-semibold tracking-tight mb-3 text-white">
+                  <h3 className="text-xl md:text-2xl font-semibold tracking-tight mb-4 text-white">
                     {item.title}
                   </h3>
-                  <p className="font-light text-base max-w-sm text-zinc-400 leading-relaxed">
+                  <p className="font-light text-sm md:text-base max-w-md text-zinc-400 leading-relaxed">
                     {item.description}
                   </p>
                 </div>
-              </div>
-              <div className={`absolute top-12 right-12 transition-all duration-500 ${
-                hovered === index ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
-              }`}>
-                 <MoveRight className="h-6 w-6 text-white" strokeWidth={1.5} />
               </div>
             </motion.div>
           ))}
