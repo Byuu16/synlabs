@@ -14,12 +14,25 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SynLabs",
-  description: "We engineer unfair advantages for ambitious startups. No fluff, just scalable architecture and ruthless execution to grow your business.",
-  keywords: ["Web Development", "UI/UX Design", "Software Engineering", "Agency"],
+  title: "SYNLABS",
+  description:
+    "Where hardware, software, and AI converge. Engineering intelligent systems for a connected future.",
+
+  keywords: [
+    "Embedded Systems",
+    "IoT",
+    "AI",
+    "Software Engineering",
+    "Hardware Engineering",
+    "Automation",
+    "Firmware",
+    "System Architecture",
+  ],
+
   openGraph: {
-    title: "SynLabs",
-    description: "High Performance Digital Experiences",
+    title: "SYNLABS",
+    description:
+      "Where hardware, software, and AI converge.",
     type: "website",
   },
 };
@@ -43,4 +56,3 @@ export default function RootLayout({
     </html>
   );
 }
-
