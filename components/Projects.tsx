@@ -1,8 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { useState } from "react";
 
 const caseStudies = [
   { 
@@ -34,23 +33,108 @@ const caseStudies = [
   },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15, delayChildren: 0.2 },
-  },
-};
+function TiltCard({ item, index }: { item: typeof caseStudies[0], index: number }) {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 50, filter: "blur(10px)" },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    filter: "blur(0px)",
-    transition: { duration: 1, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] } 
-  },
-};
+  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 30 });
+  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 30 });
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["3deg", "-3deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-3deg", "3deg"]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    // Only apply tilt on larger screens where hovering is natural
+    if (typeof window !== "undefined" && window.innerWidth < 1024) return;
+    
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: "preserve-3d",
+      }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
+      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 1, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
+      className="relative flex flex-col lg:flex-row border border-white/10 bg-white/[0.02] p-8 md:p-12 hover:bg-white/[0.04] transition-colors rounded-sm group perspective-[1000px]"
+    >
+      {/* Subtle hover gloss effect */}
+      <div 
+        className="absolute inset-0 z-0 pointer-events-none rounded-sm transition-opacity duration-500 opacity-0 group-hover:opacity-100"
+        style={{
+          background: "linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.02) 25%, transparent 30%)",
+        }}
+      />
+
+      {/* Content wrapper translated slightly on Z-axis to enhance 3D feel */}
+      <div className="relative z-10 flex flex-col lg:flex-row w-full" style={{ transform: "translateZ(20px)" }}>
+        {/* Left Column - Title & Category */}
+        <div className="lg:w-1/3 mb-12 lg:mb-0 lg:pr-8 border-b lg:border-b-0 lg:border-r border-white/10 pb-8 lg:pb-0">
+          <span className="text-xs font-mono text-zinc-500 mb-4 block">CASE STUDY {item.id}</span>
+          <h3 className="text-3xl font-semibold tracking-tight text-white mb-4 transition-colors group-hover:text-zinc-200">
+            {item.title}
+          </h3>
+          <span className="text-xs font-mono text-zinc-400 uppercase tracking-widest bg-white/5 py-1 px-3 rounded inline-block">
+            {item.category}
+          </span>
+        </div>
+        
+        {/* Right Column - Details */}
+        <div className="lg:w-2/3 lg:pl-12 flex flex-col gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <h4 className="text-sm font-semibold text-zinc-300 mb-2 uppercase tracking-wide">Problem</h4>
+              <p className="text-zinc-500 text-sm font-light leading-relaxed">{item.problem}</p>
+            </div>
+            <div>
+              <h4 className="text-sm font-semibold text-zinc-300 mb-2 uppercase tracking-wide">Solution</h4>
+              <p className="text-zinc-500 text-sm font-light leading-relaxed">{item.solution}</p>
+            </div>
+          </div>
+
+          <div className="h-px w-full bg-white/10" />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <h4 className="text-sm font-semibold text-zinc-300 mb-3 uppercase tracking-wide">Tech Stack</h4>
+              <div className="flex flex-wrap gap-2">
+                {item.tech.map((techItem, tIndex) => (
+                  <span key={tIndex} className="text-xs font-mono text-zinc-400 border border-white/10 py-1 px-2 rounded-sm bg-black">
+                    {techItem}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h4 className="text-sm font-semibold text-zinc-300 mb-2 uppercase tracking-wide">Outcome</h4>
+              <p className="text-white text-sm font-medium leading-relaxed">{item.outcome}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
 export default function Projects() {
   return (
@@ -77,65 +161,11 @@ export default function Projects() {
           </button>
         </motion.div>
 
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="flex flex-col gap-16"
-        >
+        <div className="flex flex-col gap-16 perspective-[1200px]">
           {caseStudies.map((item, index) => (
-            <motion.div
-              key={item.id}
-              variants={itemVariants}
-              className="flex flex-col lg:flex-row border border-white/10 bg-white/[0.02] p-8 md:p-12 hover:bg-white/[0.04] transition-colors rounded-sm"
-            >
-              {/* Left Column - Title & Category */}
-              <div className="lg:w-1/3 mb-12 lg:mb-0 lg:pr-8 border-b lg:border-b-0 lg:border-r border-white/10 pb-8 lg:pb-0">
-                <span className="text-xs font-mono text-zinc-500 mb-4 block">CASE STUDY {item.id}</span>
-                <h3 className="text-3xl font-semibold tracking-tight text-white mb-4">
-                  {item.title}
-                </h3>
-                <span className="text-xs font-mono text-zinc-400 uppercase tracking-widest bg-white/5 py-1 px-3 rounded inline-block">
-                  {item.category}
-                </span>
-              </div>
-              
-              {/* Right Column - Details */}
-              <div className="lg:w-2/3 lg:pl-12 flex flex-col gap-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div>
-                    <h4 className="text-sm font-semibold text-zinc-300 mb-2 uppercase tracking-wide">Problem</h4>
-                    <p className="text-zinc-500 text-sm font-light leading-relaxed">{item.problem}</p>
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-semibold text-zinc-300 mb-2 uppercase tracking-wide">Solution</h4>
-                    <p className="text-zinc-500 text-sm font-light leading-relaxed">{item.solution}</p>
-                  </div>
-                </div>
-
-                <div className="h-px w-full bg-white/10" />
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div>
-                    <h4 className="text-sm font-semibold text-zinc-300 mb-3 uppercase tracking-wide">Tech Stack</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {item.tech.map((techItem, tIndex) => (
-                        <span key={tIndex} className="text-xs font-mono text-zinc-400 border border-white/10 py-1 px-2 rounded-sm bg-black">
-                          {techItem}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-semibold text-zinc-300 mb-2 uppercase tracking-wide">Outcome</h4>
-                    <p className="text-white text-sm font-medium leading-relaxed">{item.outcome}</p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
+            <TiltCard key={item.id} item={item} index={index} />
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

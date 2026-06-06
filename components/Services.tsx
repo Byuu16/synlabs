@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Cpu, Bot, Globe, Box, MoveRight } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const capabilities = [
   {
@@ -47,6 +47,29 @@ const itemVariants = {
 
 export default function Services() {
   const [hovered, setHovered] = useState<number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!containerRef.current) return;
+      
+      const cards = containerRef.current.querySelectorAll('.spotlight-card');
+      cards.forEach((card) => {
+        const rect = (card as HTMLElement).getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        (card as HTMLElement).style.setProperty("--mouse-x", `${x}px`);
+        (card as HTMLElement).style.setProperty("--mouse-y", `${y}px`);
+      });
+    };
+
+    const container = containerRef.current;
+    if (container) {
+      container.addEventListener("mousemove", handleMouseMove);
+      return () => container.removeEventListener("mousemove", handleMouseMove);
+    }
+  }, []);
 
   return (
     <section className="relative w-full bg-black border-b border-white/10 pt-32 pb-24 px-4 sm:px-8 md:px-12">
@@ -69,11 +92,12 @@ export default function Services() {
         </motion.div>
 
         <motion.div 
+          ref={containerRef}
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-2 border-l border-t border-white/10"
+          className="group grid grid-cols-1 md:grid-cols-2 gap-4"
         >
           {capabilities.map((item, index) => (
             <motion.div
@@ -88,27 +112,45 @@ export default function Services() {
               viewport={{ margin: "-30% 0px -30% 0px", amount: "some" }}
               onMouseEnter={() => setHovered(index)}
               onMouseLeave={() => setHovered(null)}
-              className={`relative p-10 md:p-12 transition-colors duration-500 overflow-hidden cursor-default border-r border-b border-white/10 ${
-                hovered === index ? "bg-white/5" : "bg-black"
-              }`}
+              className="spotlight-card relative rounded-2xl bg-white/5 overflow-hidden p-[1px] cursor-default"
             >
-              <div className="flex flex-col h-full justify-between">
-                <div className="mb-12 inline-flex">
-                  <item.icon className="h-8 w-8 text-white/80" strokeWidth={1.5} />
+              {/* Spotlight Glowing Border effect */}
+              <div 
+                className="pointer-events-none absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100"
+                style={{
+                  background: `radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.4), transparent 40%)`
+                }}
+              />
+              
+              {/* Inner Card (covers the middle, leaving only the 1px border glowing) */}
+              <div className="relative h-full w-full rounded-[15px] bg-[#0a0a0a] p-10 md:p-12 overflow-hidden">
+                {/* Inner Glow when hovering */}
+                <div 
+                  className="pointer-events-none absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100"
+                  style={{
+                    background: `radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.03), transparent 40%)`
+                  }}
+                />
+
+                <div className="relative z-10 flex flex-col h-full justify-between">
+                  <div className="mb-12 inline-flex">
+                    <item.icon className={`h-8 w-8 transition-colors duration-500 ${hovered === index ? "text-white" : "text-white/60"}`} strokeWidth={1.5} />
+                  </div>
+                  <div>
+                    <h3 className="text-xl md:text-2xl font-semibold tracking-tight mb-3 text-white">
+                      {item.title}
+                    </h3>
+                    <p className="font-light text-base max-w-sm text-zinc-400 leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-xl md:text-2xl font-semibold tracking-tight mb-3 text-white">
-                    {item.title}
-                  </h3>
-                  <p className="font-light text-base max-w-sm text-zinc-400 leading-relaxed">
-                    {item.description}
-                  </p>
+
+                <div className={`absolute top-12 right-12 z-10 transition-all duration-500 ${
+                  hovered === index ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
+                }`}>
+                  <MoveRight className="h-6 w-6 text-white" strokeWidth={1.5} />
                 </div>
-              </div>
-              <div className={`absolute top-12 right-12 transition-all duration-500 ${
-                hovered === index ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
-              }`}>
-                 <MoveRight className="h-6 w-6 text-white" strokeWidth={1.5} />
               </div>
             </motion.div>
           ))}

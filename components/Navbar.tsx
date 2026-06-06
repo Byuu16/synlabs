@@ -21,6 +21,7 @@ const disciplines = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
+  const [currentTime, setCurrentTime] = useState("");
 
   // Manage body scroll lock
   useEffect(() => {
@@ -32,6 +33,29 @@ export default function Navbar() {
     return () => {
       document.body.style.overflow = "";
     };
+  }, [isOpen]);
+
+  // Handle Live Clock
+  useEffect(() => {
+    if (!isOpen) return; // Only run clock when menu is open
+
+    const updateClock = () => {
+      const now = new Date();
+      // Format: 14:32:05 EST
+      const timeString = now.toLocaleTimeString('en-US', { 
+        hour12: false, 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        second: '2-digit',
+        timeZoneName: 'short'
+      });
+      setCurrentTime(timeString);
+    };
+
+    updateClock(); // Initial call
+    const intervalId = setInterval(updateClock, 1000);
+
+    return () => clearInterval(intervalId);
   }, [isOpen]);
 
   // Track active section for navigation highlighting
@@ -86,7 +110,7 @@ export default function Navbar() {
           role="button"
           onKeyDown={(e) => e.key === 'Enter' && handleNavClick(e as any, 'hero')}
         >
-          <img src="/logosynlabs.png" alt="SynLabs Logo" className="w-9 h-9 md:w-10 md:h-10 object-contain" />
+          <img src="/logosynlabs.png" alt="SynLabs Logo" className="w-10 h-10 md:w-12 md:h-12 object-contain" />
           <div className="text-white font-black text-2xl leading-none tracking-tighter uppercase font-sans">
             SynLabs<span className="text-zinc-500">.</span>
           </div>
@@ -123,7 +147,7 @@ export default function Navbar() {
                 role="button"
                 onKeyDown={(e) => e.key === 'Enter' && handleNavClick(e as any, 'hero')}
               >
-                <img src="/logosynlabs.png" alt="SynLabs Logo" className="w-9 h-9 md:w-10 md:h-10 object-contain" />
+                <img src="/logosynlabs.png" alt="SynLabs Logo" className="w-10 h-10 md:w-12 md:h-12 object-contain" />
                 <div className="font-black text-2xl leading-none tracking-tighter uppercase font-sans">
                   SynLabs<span className="text-zinc-500">.</span>
                 </div>
@@ -218,6 +242,27 @@ export default function Navbar() {
                   hello@synlabs.com
                 </a>
               </div>
+
+              {/* NEW: System Status & Clock */}
+              <div className="flex flex-col gap-4">
+                <span className="text-xs font-mono text-zinc-500 uppercase tracking-widest">// SYSTEM STATUS</span>
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
+                  <div className="flex items-center gap-3">
+                    <span className="relative flex h-3 w-3">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                    </span>
+                    <span className="text-sm font-mono text-emerald-500 tracking-wider uppercase">
+                      Capacity Available_
+                    </span>
+                  </div>
+                  <div className="hidden sm:block text-zinc-700">|</div>
+                  <div className="text-sm font-mono text-zinc-400 tracking-wider">
+                    SYS.TIME // {currentTime}
+                  </div>
+                </div>
+              </div>
+
               <div className="flex flex-wrap gap-8 md:gap-12">
                 {["LinkedIn", "GitHub", "Instagram"].map((social) => (
                   <a 
