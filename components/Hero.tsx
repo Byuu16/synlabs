@@ -8,11 +8,11 @@ import { useRef, useEffect, useState } from "react";
 const ScrambleText = ({ text }: { text: string }) => {
   const [displayText, setDisplayText] = useState("");
   const chars = "!<>-_\\\\/[]{}—=+*^?#________";
-  
+
   useEffect(() => {
     let iteration = 0;
     let interval: NodeJS.Timeout;
-    
+
     const timeout = setTimeout(() => {
       interval = setInterval(() => {
         setDisplayText(
@@ -23,15 +23,15 @@ const ScrambleText = ({ text }: { text: string }) => {
             return chars[Math.floor(Math.random() * chars.length)];
           }).join("")
         );
-        
+
         if (iteration >= text.length) {
           clearInterval(interval);
         }
-        
+
         iteration += 1 / 3;
       }, 30);
     }, 1500);
-    
+
     return () => {
       clearTimeout(timeout);
       clearInterval(interval);
@@ -55,17 +55,16 @@ export default function Hero() {
   const words = headline.split(" ");
 
   const wordVariants = {
-    hidden: { opacity: 0, y: 20, filter: "blur(8px)" },
-    visible: (i: number) => ({
+    hidden: {
+      opacity: 0,
+      y: 20,
+      filter: "blur(8px)",
+    },
+    visible: {
       opacity: 1,
       y: 0,
       filter: "blur(0px)",
-      transition: {
-        delay: 2.0 + (i * 0.15),
-        duration: 1,
-        ease: [0.16, 1, 0.3, 1]
-      }
-    })
+    },
   };
 
   return (
@@ -79,7 +78,7 @@ export default function Hero() {
 
       {/* Main Content */}
       <motion.div style={{ opacity }} className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-start text-left md:items-center md:text-center">
-        
+
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
